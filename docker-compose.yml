@@ -12,6 +12,7 @@ services:
     - MYSQL_PASSWORD=vagrant
     - MYSQL_ROOT_PASSWORD=vagrant
     - TZ=Europe/Berlin
+    image: gcr.io/spank-me-botty/legacyplayersv3_mariadb
   backend:
     depends_on:
     - mariadb
@@ -27,11 +28,14 @@ services:
     - HOST=http://localhost
     - MODEL_GENERATOR=http://localhost:5555
     - INSTANCE_STORAGE_PATH=/Storage
+    image: gcr.io/spank-me-botty/legacyplayersv3_backend
   webclient:
     build: ./Webclient
     networks:
     - rpll
+    image: gcr.io/spank-me-botty/legacyplayersv3_webclient
   reverse-proxy:
+    image: gcr.io/spank-me-botty/legacyplayersv3_reverse-proxy
     build: ./ReverseProxy
     networks:
     - rpll
